@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<MapSet forSchema="https://www.worldline.com/namespaces/fs/ita/3ds/acs/business/config/v1/profileset">
+    <Mapping
+            sourceNodePath="acspst:ProfileSet"
+            targetTable="SQL:ProfileSet">
+        <primaryKey type="SQL:BIGINT(20)">
+            <source>id</source>
+            <target>id</target>
+        </primaryKey>
+        <FieldsMapping>
+        <column type="SQL:VARCHAR(255)">
+            <source>name</source>
+            <target>name</target>
+        </column>
+        </FieldsMapping>
+        <Children>
+            <Mapping
+                    sourceNodePath="profiles"
+                    targetTable="SQL:Profile">
+                <Through>
+                <manyToMany>
+                     <!--
+                        INNER JOIN
+                        ProfileSet_Rule pr ON pr.id_profileSet = ProfileSet.id
+                     -->
+                    <table name="ProfileSet_Rule" fk="id_profileSet"/>
+                    <!--
+                        INNER JOIN
+                        Rule r ON r.id = pr.id_rule
+                     -->
+                    <table name="Rule" fk="id_rule" pk="id"/>
+                </manyToMany>
+                <manyToOne>
+                    <!--
+                        INNER JOIN
+                        Profile p ON p.id = r.fk_id_profile
+                     -->
+                    <table name="Rule" fk="fk_id_profile"/>
+                    <table name="Profile" pk="id"/>
+                </manyToOne>
+                <!--
+                    INNER JOIN
+                    ProfileSet_Rule pr ON pr.id_profileSet = ProfileSet.id
+                    INNER JOIN
+                    Rule r ON r.id = pr.id_rule
+                    INNER JOIN
+                    Profile p ON p.id = r.fk_id_profile
+                 -->
+                </Through>
+                <EntriesMapping>
+                    <source>profile</source>
+                    <primaryKey type="SQL:BIGINT(20)">
+                        <source>id</source>
+                        <target>id</target>
+                    </primaryKey>
+                    <FieldsMapping>
+                        <column type="SQL:VARCHAR(255)">
+                            <source>name</source>
+                            <target>name</target>
+                        </column>
+                    </FieldsMapping>
+                </EntriesMapping>
+            </Mapping>
+        </Children>
+    </Mapping>
+</MapSet>

@@ -1,0 +1,23 @@
+let file = File::open("Kebab-dump.sql");
+
+    let mut buf_reader = BufReader::new(file.unwrap());
+
+    let mut whole_file = String::new();
+
+    match buf_reader.read_to_string(&mut whole_file) {
+        Ok(_) => {
+            // Traitement supplémentaire avec le contenu du fichier
+        }
+        Err(_) => {
+            SystemTrayError::new("Error: can't read the file");
+        }
+    }
+
+
+let finder = vec!["CREATE", "PRIMARY"];
+
+    for key in finder {
+        let starter = scanner(&mut whole_file, key);
+        let value: Vec<&str> = starter.iter().map(|s| s.as_str()).collect();
+        println!("{:?}", mrpropre(value));
+    }

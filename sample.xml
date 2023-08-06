@@ -1,0 +1,4 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<MapSet forSchema="https://www.worldline.com/namespaces/fs/ita/3ds/acs/business/config/v1/profileset">
+	<Mapping sourceNodePath="acspst:ProfileSet" targetTable="SQL:ProfileSet" />
+</MapSet>
